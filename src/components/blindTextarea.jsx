@@ -1,18 +1,57 @@
 import React, { Component } from 'react'
-// import translate from 'google-translate-api';
+import axios from 'axios';
+import Speech from 'speak-tts'
+const dictionaryUrl = 'http://localhost:3001/api/v1/classification';
+const speech = new Speech();
+const ptI18n = require('../i18n/pt-br');
 
 class BlindTextarea extends Component {
   constructor(props) {
     super(props);
+    this.speachSetup = {
+      'volume': 1,
+      'lang': 'pt-BR',
+      'rate': 1,
+      'pitch': 1,
+      'splitSentences': false
+    }
+    speech.init(this.speachSetup);
+  }
+  prepareText(inputText) {
+    return inputText.split(" ");
   }
 
-  keyUpHandler = (event) => {
+  buildJson(inputText) {
+    return {
+      data: {
+       type: 'classification',
+       attributes: {
+         inputText: inputText
+       }
+     }
+   }
+  }
+
+  buildComaSplit(inputWord) {
+    const chars = inputWord.split('');
+    return chars.join(',');
+  }
+
+  keyUpHandler = async (event) => {
+    const inputText = event.target.value;
+    let lastWord;
+    if (event.charCode === 46) {
+
+    }
     if (event.charCode === 32) {
-      const fullText = event.target.value;
-      const words = fullText.split(" ");
-      console.log(words);
-      // const googie1 = new GoogieSpell("googiespell/", "/");
-      console.log('>>>>>>>>>>>>>>>>>');
+      try {
+        const words = this.prepareText(inputText);
+        lastWord = words[words.length - 1];
+        await axios({ method: 'post', url: dictionaryUrl, data: this.buildJson(lastWord) });
+      } catch (error) {
+        await speech.speak({ text: `${ptI18n.full_error_type}${this.buildComaSplit(lastWord)}`});
+        console.log(error);
+      }
     }
     console.log(event.charCode);
 
