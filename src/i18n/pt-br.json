@@ -1,5 +1,6 @@
 {
   "wrong_word": "A ultima palavra digitada está errada!",
   "input_typed": "Foi digitado ",
-  "full_error_type": "A ultima palavra digitada está errada! Foi digitado: "
+  "full_error_type": "A ultima palavra digitada está errada! Foi digitado: ",
+  "complexity_error_message": "Frase é muito complexa para a análise sintática."
 }
