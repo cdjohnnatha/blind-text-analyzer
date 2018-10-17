@@ -2,5 +2,9 @@
   "wrong_word": "A ultima palavra digitada está errada!",
   "input_typed": "Foi digitado ",
   "full_error_type": "A ultima palavra digitada está errada! Foi digitado: ",
-  "complexity_error_message": "Frase é muito complexa para a análise sintática."
+  "complexity_error_message": "Frase é muito complexa para a análise sintática.",
+  "verbal_mismatch_error": "Erro de concordância verbal.",
+  "verbal_mismatch_error_speech": "Erro de concordância verbal. A frase digitada foi: ",
+  "suggest": "A frase poderia ser:",
+  "suggests": "A frase poderia ser uma das opções: "
 }
